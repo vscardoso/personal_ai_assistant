@@ -91,7 +91,8 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "timestamp": datetime.utcnow()}
+    # Return a simple JSON-friendly health response
+    return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
 
 @app.post("/users", status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate, db: Session = Depends(get_db), background_tasks: BackgroundTasks = None):
@@ -330,10 +331,15 @@ async def send_materials(request: MaterialsRequest, db: Session = Depends(get_db
 
 if __name__ == "__main__":
     import uvicorn
+
+    # Use PORT from environment (platforms like Railway provide a dynamic port)
+    port = int(os.getenv("PORT", "8000"))
+    debug = os.getenv("DEBUG", "false").lower() in ("1", "true", "yes")
+
     uvicorn.run(
-        "main:app",
+        app,
         host="0.0.0.0",
-        port=8000,
-        reload=True,
+        port=port,
+        reload=debug,
         log_level="info"
     )
