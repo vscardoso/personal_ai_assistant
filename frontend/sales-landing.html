@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal AI Assistant - Dobre Suas Vendas com IA | +67% de Conversão Garantida</title>
+    <meta name="description" content="IA que analisa clientes e sugere respostas que vendem. Aumente suas vendas em 67% em 30 dias ou seu dinheiro de volta.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://personalaiassistant.com/">
+    <meta property="og:title" content="Dobre Suas Vendas com IA - Personal AI Assistant">
+    <meta property="og:description" content="IA que analisa clientes e sugere respostas que vendem. +67% conversão garantida.">
+    <meta property="og:image" content="https://personalaiassistant.com/sales-preview.jpg">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="sales-styles.css">
+
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+
+        function trackConversion(event, value) {
+            gtag('event', 'conversion', {
+                'send_to': 'GA_MEASUREMENT_ID/conversion',
+                'value': value,
+                'currency': 'BRL'
+            });
+        }
+    </script>
+
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+
+    <!-- Hotjar Tracking Code -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:YOUR_HOTJAR_ID,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</head>
+<body>
+    <!-- Exit Intent Popup -->
+    <div class="exit-intent-popup" id="exitIntentPopup">
+        <div class="popup-overlay"></div>
+        <div class="popup-content">
+            <button class="popup-close" onclick="closeExitIntent()">&times;</button>
+            <div class="popup-body">
+                <h3>🔥 Espera! Oferta Especial Só Por Hoje!</h3>
+                <p><strong>50% OFF + Garantia Estendida de 60 dias</strong></p>
+                <p>Não perca a chance de dobrar suas vendas por apenas <del>R$ 97</del> <span class="highlight">R$ 47/mês</span></p>
+                <button class="btn btn-warning btn-lg" onclick="activateOffer()">
+                    <i class="fas fa-fire"></i> QUERO APROVEITAR AGORA
+                </button>
+                <p class="small text-muted mt-2">Esta oferta expira em 15 minutos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="stickyNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-brain me-2"></i>Personal AI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#demo">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#proof">Resultados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Preços</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-light btn-sm" onclick="scrollToDemo()">Teste Grátis</button>
+                    <button class="btn btn-warning btn-sm fw-bold" onclick="scrollToPricing()">
+                        <i class="fas fa-lightning"></i> COMPRAR AGORA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Above the Fold -->
+    <section class="hero-sales">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="hero-content">
+                        <div class="social-proof-badge mb-3">
+                            <small class="text-white-50">
+                                <i class="fas fa-users"></i> +2.547 vendedores usando
+                            </small>
+                        </div>
+
+                        <h1 class="display-4 fw-bold text-white mb-4">
+                            Dobre Suas <span class="text-warning">Vendas</span> com IA que Lê a Mente dos Clientes
+                        </h1>
+
+                        <p class="lead text-white-75 mb-4">
+                            Nossa IA analisa o perfil psicológico dos seus clientes e sugere exatamente
+                            <strong>o que falar para fechar negócios</strong>. Resultado garantido em 30 dias.
+                        </p>
+
+                        <div class="stats-row mb-4">
+                            <div class="stat-item">
+                                <div class="stat-number">+67%</div>
+                                <div class="stat-label">Aumento em Vendas</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">-83%</div>
+                                <div class="stat-label">Menos Objeções</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">2.1x</div>
+                                <div class="stat-label">Mais Fechamentos</div>
+                            </div>
+                        </div>
+
+                        <div class="cta-section">
+                            <button class="btn btn-warning btn-lg px-4 py-3 fw-bold" onclick="startFreeTrial()" id="heroCTA">
+                                <i class="fas fa-rocket me-2"></i>
+                                TESTAR GRÁTIS POR 7 DIAS
+                            </button>
+                            <p class="small text-white-50 mt-2">
+                                ✓ Sem cartão de crédito ✓ Cancelamento a qualquer momento
+                            </p>
+                        </div>
+
+                        <div class="trust-indicators mt-4">
+                            <div class="d-flex align-items-center gap-3 flex-wrap">
+                                <div class="trust-item">
+                                    <i class="fas fa-shield-alt text-success"></i>
+                                    <small>Garantia 30 dias</small>
+                                </div>
+                                <div class="trust-item">
+                                    <i class="fas fa-lock text-success"></i>
+                                    <small>Dados seguros</small>
+                                </div>
+                                <div class="trust-item">
+                                    <i class="fas fa-award text-success"></i>
+                                    <small>Suporte premium</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="hero-demo">
+                        <div class="demo-window">
+                            <div class="window-header">
+                                <div class="window-controls">
+                                    <span class="control red"></span>
+                                    <span class="control yellow"></span>
+                                    <span class="control green"></span>
+                                </div>
+                                <span class="window-title">Personal AI Assistant</span>
+                            </div>
+                            <div class="window-content">
+                                <div class="chat-simulation">
+                                    <div class="message client">
+                                        "Preciso conversar com minha esposa sobre isso antes de decidir..."
+                                    </div>
+                                    <div class="ai-analysis">
+                                        <div class="analysis-header">
+                                            <i class="fas fa-brain text-primary"></i>
+                                            <span>IA analisando perfil do cliente...</span>
+                                        </div>
+                                        <div class="analysis-result">
+                                            <strong>Perfil detectado:</strong> Cauteloso, busca aprovação<br>
+                                            <strong>Estratégia:</strong> Reduzir pressão, dar tempo
+                                        </div>
+                                    </div>
+                                    <div class="ai-suggestions">
+                                        <div class="suggestion-header">💡 Respostas sugeridas pela IA:</div>
+                                        <div class="suggestion active">
+                                            "Perfeito! Conversem com calma. Posso enviar um material para ela analisar também?"
+                                        </div>
+                                        <div class="suggestion">
+                                            "Que bom que vocês decidem juntos. Que tal agendarmos uma ligação com ela presente?"
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Agitation Section -->
+    <section class="problem-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="h1 fw-bold mb-4">Cansado de Perder Vendas por Não Saber o que Falar?</h2>
+                    <p class="lead text-muted mb-5">
+                        Você trabalha duro, mas seus concorrentes fecham mais negócios. Por quê?
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="problem-card text-center h-100">
+                        <div class="problem-icon mb-3">
+                            <i class="fas fa-comments-dollar text-danger"></i>
+                        </div>
+                        <h4 class="fw-bold">Clientes que "Vão Pensar"</h4>
+                        <p class="text-muted">
+                            73% dos leads somem depois de dizer que "vão pensar".
+                            Você não sabe como manter o interesse vivo.
+                        </p>
+                        <div class="pain-indicator">
+                            <span class="badge bg-danger">-R$ 15.000/mês perdidos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="problem-card text-center h-100">
+                        <div class="problem-icon mb-3">
+                            <i class="fas fa-user-times text-danger"></i>
+                        </div>
+                        <h4 class="fw-bold">Objeções que te Paralisam</h4>
+                        <p class="text-muted">
+                            "Está caro", "Não é o momento", "Preciso comparar".
+                            Você não tem respostas que convencem.
+                        </p>
+                        <div class="pain-indicator">
+                            <span class="badge bg-danger">-67% conversão</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="problem-card text-center h-100">
+                        <div class="problem-icon mb-3">
+                            <i class="fas fa-chart-line-down text-danger"></i>
+                        </div>
+                        <h4 class="fw-bold">Concorrência te Superando</h4>
+                        <p class="text-muted">
+                            Outros vendem o mesmo produto por preços similares,
+                            mas fecham mais. O diferencial está na comunicação.
+                        </p>
+                        <div class="pain-indicator">
+                            <span class="badge bg-danger">Perdendo market share</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <div class="alert alert-warning border-0 shadow-sm">
+                        <h5 class="fw-bold text-warning mb-2">⚠️ A Verdade Dolorosa</h5>
+                        <p class="mb-0">
+                            Enquanto você luta com objeções, seus concorrentes usam IA para ler a mente dos clientes
+                            e falar exatamente o que eles querem ouvir. <strong>Não é sorte. É estratégia.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section */
+    <section class="demo-section py-5" id="demo">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="h1 fw-bold mb-4">Veja a IA em Ação: Teste Seu Pitch Agora</h2>
+                    <p class="lead text-muted">
+                        Cole uma conversa real com um cliente e veja como nossa IA sugere a resposta perfeita
+                    </p>
+                </div>
+            </div>
+
+            <!-- Demo Tabs -->
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <ul class="nav nav-pills nav-justified mb-4" id="demoTabs" data-aos="fade-up">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#personality-demo">
+                                <i class="fas fa-user-check me-2"></i>
+                                Análise de Cliente
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#objection-demo">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                Quebra Objeções
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#closing-demo">
+                                <i class="fas fa-handshake me-2"></i>
+                                Fechamento
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- Personality Analysis Demo -->
+                        <div class="tab-pane fade show active" id="personality-demo" data-aos="fade-up">
+                            <div class="demo-card">
+                                <div class="demo-header">
+                                    <h4><i class="fas fa-brain text-primary me-2"></i>Análise Psicológica do Cliente</h4>
+                                    <p class="text-muted">Cole uma conversa e veja o perfil psicológico que nossa IA detecta</p>
+                                </div>
+
+                                <div class="demo-form">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Conversa com o cliente:</label>
+                                        <textarea
+                                            class="form-control form-control-lg"
+                                            id="clientConversation"
+                                            rows="4"
+                                            placeholder="Ex: Oi, vi seu produto e achei interessante. Mas o preço está um pouco salgado para mim. Vocês fazem desconto? Preciso pensar melhor..."
+                                        ></textarea>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Tipo de venda:</label>
+                                            <select class="form-select" id="salesType">
+                                                <option value="b2b">B2B (Empresas)</option>
+                                                <option value="b2c">B2C (Consumidor Final)</option>
+                                                <option value="high-ticket">Alto Valor</option>
+                                                <option value="subscription">Assinatura/Recorrente</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Fase da venda:</label>
+                                            <select class="form-select" id="salesStage">
+                                                <option value="prospecting">Prospecção</option>
+                                                <option value="presentation">Apresentação</option>
+                                                <option value="objection">Objeção</option>
+                                                <option value="closing">Fechamento</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary btn-lg w-100" onclick="analyzeClient()" id="analyzeBtn">
+                                        <i class="fas fa-brain me-2"></i>
+                                        Analisar Cliente com IA
+                                    </button>
+                                </div>
+
+                                <div class="demo-result d-none" id="analysisResult">
+                                    <div class="result-header">
+                                        <h5 class="fw-bold text-success">
+                                            <i class="fas fa-check-circle me-2"></i>
+                                            Análise Completa do Cliente
+                                        </h5>
+                                    </div>
+
+                                    <div class="row g-3" id="analysisCards">
+                                        <!-- Analysis cards will be populated here -->
+                                    </div>
+
+                                    <div class="ai-recommendations mt-4">
+                                        <h6 class="fw-bold">🎯 Estratégia Recomendada pela IA:</h6>
+                                        <div id="aiStrategy" class="strategy-content">
+                                            <!-- Strategy will be populated here -->
+                                        </div>
+                                    </div>
+
+                                    <div class="upgrade-prompt mt-4 p-3 bg-warning-subtle border-warning border rounded">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <strong>💡 Quer ver as 5 melhores respostas para este cliente?</strong>
+                                                <br><small>Upgrade para ver análises completas + sugestões personalizadas</small>
+                                            </div>
+                                            <button class="btn btn-warning btn-sm" onclick="showUpgradeModal()">
+                                                Upgrade Agora
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Objection Handling Demo -->
+                        <div class="tab-pane fade" id="objection-demo" data-aos="fade-up">
+                            <div class="demo-card">
+                                <div class="demo-header">
+                                    <h4><i class="fas fa-shield-alt text-warning me-2"></i>Quebra Objeções Automática</h4>
+                                    <p class="text-muted">Escolha uma objeção comum e veja como responder</p>
+                                </div>
+
+                                <div class="objection-scenarios">
+                                    <h6 class="fw-semibold mb-3">Selecione a objeção do cliente:</h6>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="objection-card" onclick="selectObjection(this, 'price')">
+                                                <div class="objection-icon">💰</div>
+                                                <div class="objection-text">"Está muito caro"</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="objection-card" onclick="selectObjection(this, 'timing')">
+                                                <div class="objection-icon">⏰</div>
+                                                <div class="objection-text">"Não é o momento"</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="objection-card" onclick="selectObjection(this, 'competition')">
+                                                <div class="objection-icon">🏆</div>
+                                                <div class="objection-text">"Vou comparar com concorrentes"</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="objection-card" onclick="selectObjection(this, 'decision')">
+                                                <div class="objection-icon">🤔</div>
+                                                <div class="objection-text">"Preciso pensar melhor"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tone-selector mt-4">
+                                        <h6 class="fw-semibold">Tom da resposta:</h6>
+                                        <div class="btn-group w-100" role="group">
+                                            <input type="radio" class="btn-check" name="responseTone" id="empathetic" value="empathetic" checked>
+                                            <label class="btn btn-outline-primary" for="empathetic">😊 Empático</label>
+
+                                            <input type="radio" class="btn-check" name="responseTone" id="confident" value="confident">
+                                            <label class="btn btn-outline-primary" for="confident">💪 Confiante</label>
+
+                                            <input type="radio" class="btn-check" name="responseTone" id="consultative" value="consultative">
+                                            <label class="btn btn-outline-primary" for="consultative">🎯 Consultivo</label>
+
+                                            <input type="radio" class="btn-check" name="responseTone" id="urgent" value="urgent">
+                                            <label class="btn btn-outline-primary" for="urgent">⚡ Urgente</label>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-warning btn-lg w-100 mt-4" onclick="generateObjectionResponse()" id="objectionBtn">
+                                        <i class="fas fa-magic me-2"></i>
+                                        Gerar Resposta Persuasiva
+                                    </button>
+                                </div>
+
+                                <div class="objection-result d-none" id="objectionResult">
+                                    <div class="response-options">
+                                        <h6 class="fw-bold text-success mb-3">
+                                            <i class="fas fa-lightbulb me-2"></i>
+                                            Respostas Geradas pela IA:
+                                        </h6>
+                                        <div id="responseList">
+                                            <!-- Responses will be populated here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Closing Demo -->
+                        <div class="tab-pane fade" id="closing-demo" data-aos="fade-up">
+                            <div class="demo-card">
+                                <div class="demo-header">
+                                    <h4><i class="fas fa-handshake text-success me-2"></i>Técnicas de Fechamento IA</h4>
+                                    <p class="text-muted">Veja as melhores técnicas de fechamento para cada tipo de cliente</p>
+                                </div>
+
+                                <div class="closing-scenarios">
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold">Perfil do cliente:</label>
+                                        <select class="form-select form-select-lg" id="clientProfile" onchange="updateClosingTechniques()">
+                                            <option value="">Selecione o perfil...</option>
+                                            <option value="analytical">Analítico (quer dados e provas)</option>
+                                            <option value="driver">Dominante (quer resultados rápidos)</option>
+                                            <option value="expressive">Expressivo (quer relacionamento)</option>
+                                            <option value="amiable">Amigável (quer segurança)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="closing-techniques d-none" id="closingTechniques">
+                                        <h6 class="fw-bold">🎯 Técnicas Recomendadas:</h6>
+                                        <div class="row g-3" id="techniquesList">
+                                            <!-- Techniques will be populated here -->
+                                        </div>
+
+                                        <div class="technique-details mt-4">
+                                            <div class="alert alert-info">
+                                                <h6 class="fw-bold">💡 Script Personalizado:</h6>
+                                                <div id="closingScript">
+                                                    <!-- Script will be populated here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="proof-section py-5 bg-primary text-white" id="proof">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="h1 fw-bold mb-4">Vendedores Reais, Resultados Reais</h2>
+                    <p class="lead opacity-75">
+                        Veja como outros profissionais multiplicaram suas vendas
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card h-100">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <img src="https://i.pravatar.cc/80?img=1" alt="João Silva" class="rounded-circle">
+                            </div>
+                            <div class="testimonial-info">
+                                <h6 class="fw-bold mb-0">João Silva</h6>
+                                <small class="text-muted">Consultor B2B</small>
+                            </div>
+                            <div class="testimonial-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p class="mb-3">
+                                "Em 30 dias, minha conversão saltou de 12% para 23%. A IA me ensinou a
+                                identificar objeções antes mesmo do cliente falar."
+                            </p>
+                        </div>
+                        <div class="testimonial-results">
+                            <div class="result-badge bg-success">
+                                <strong>+91% em vendas</strong>
+                            </div>
+                            <div class="result-badge bg-info">
+                                <strong>R$ 47.000 extras</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card h-100">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <img src="https://i.pravatar.cc/80?img=2" alt="Maria Santos" class="rounded-circle">
+                            </div>
+                            <div class="testimonial-info">
+                                <h6 class="fw-bold mb-0">Maria Santos</h6>
+                                <small class="text-muted">Vendedora Imobiliária</small>
+                            </div>
+                            <div class="testimonial-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p class="mb-3">
+                                "Fechei 3 imóveis na primeira semana usando as técnicas da IA.
+                                Nunca tive tanto controle sobre as objeções dos clientes."
+                            </p>
+                        </div>
+                        <div class="testimonial-results">
+                            <div class="result-badge bg-success">
+                                <strong>3x mais fechamentos</strong>
+                            </div>
+                            <div class="result-badge bg-info">
+                                <strong>R$ 156.000 em comissões</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card h-100">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <img src="https://i.pravatar.cc/80?img=3" alt="Carlos Oliveira" class="rounded-circle">
+                            </div>
+                            <div class="testimonial-info">
+                                <h6 class="fw-bold mb-0">Carlos Oliveira</h6>
+                                <small class="text-muted">Vendedor SaaS</small>
+                            </div>
+                            <div class="testimonial-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p class="mb-3">
+                                "Superou minhas expectativas. A IA me ajuda a personalizar cada pitch
+                                baseado no perfil do decisor. Game changer total!"
+                            </p>
+                        </div>
+                        <div class="testimonial-results">
+                            <div class="result-badge bg-success">
+                                <strong>+134% conversão</strong>
+                            </div>
+                            <div class="result-badge bg-info">
+                                <strong>Top 1 da empresa</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-10 mx-auto" data-aos="fade-up">
+                    <div class="stats-banner">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div class="stat-big">
+                                    <div class="stat-number">2.547</div>
+                                    <div class="stat-label">Vendedores Ativos</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-big">
+                                    <div class="stat-number">67%</div>
+                                    <div class="stat-label">Aumento Médio</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-big">
+                                    <div class="stat-number">R$ 2.3M</div>
+                                    <div class="stat-label">Vendas Extras Geradas</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-big">
+                                    <div class="stat-number">4.9/5</div>
+                                    <div class="stat-label">Satisfação</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section py-5" id="pricing">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="h1 fw-bold mb-4">Escolha Seu Plano de Dominação</h2>
+                    <p class="lead text-muted">
+                        Todos os planos incluem garantia de 30 dias. Não funcionou? Devolvemos tudo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row g-4">
+                        <!-- Starter Plan -->
+                        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="pricing-card h-100">
+                                <div class="plan-header">
+                                    <h4 class="plan-name">Starter</h4>
+                                    <div class="plan-price">
+                                        <span class="currency">R$</span>
+                                        <span class="amount">47</span>
+                                        <span class="period">/mês</span>
+                                    </div>
+                                    <p class="plan-description">Para vendedores iniciantes</p>
+                                </div>
+
+                                <div class="plan-features">
+                                    <ul class="feature-list">
+                                        <li><i class="fas fa-check text-success"></i> 50 análises de clientes/mês</li>
+                                        <li><i class="fas fa-check text-success"></i> Quebra objeções básica</li>
+                                        <li><i class="fas fa-check text-success"></i> 3 perfis de personalidade</li>
+                                        <li><i class="fas fa-check text-success"></i> Suporte por email</li>
+                                        <li><i class="fas fa-times text-muted"></i> Análises avançadas</li>
+                                        <li><i class="fas fa-times text-muted"></i> Integração CRM</li>
+                                    </ul>
+                                </div>
+
+                                <div class="plan-cta">
+                                    <button class="btn btn-outline-primary w-100" onclick="selectPlan('starter')">
+                                        Começar Teste Grátis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Plan (Most Popular) -->
+                        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="pricing-card popular h-100">
+                                <div class="popular-badge">MAIS POPULAR</div>
+                                <div class="plan-header">
+                                    <h4 class="plan-name">Professional</h4>
+                                    <div class="plan-price">
+                                        <span class="currency">R$</span>
+                                        <span class="amount">97</span>
+                                        <span class="period">/mês</span>
+                                    </div>
+                                    <p class="plan-description">Para vendedores sérios</p>
+                                </div>
+
+                                <div class="plan-features">
+                                    <ul class="feature-list">
+                                        <li><i class="fas fa-check text-success"></i> Análises ilimitadas</li>
+                                        <li><i class="fas fa-check text-success"></i> IA avançada de personalidade</li>
+                                        <li><i class="fas fa-check text-success"></i> 20+ perfis detalhados</li>
+                                        <li><i class="fas fa-check text-success"></i> Scripts personalizados</li>
+                                        <li><i class="fas fa-check text-success"></i> Integração WhatsApp</li>
+                                        <li><i class="fas fa-check text-success"></i> Relatórios de performance</li>
+                                        <li><i class="fas fa-check text-success"></i> Suporte prioritário</li>
+                                    </ul>
+                                </div>
+
+                                <div class="plan-cta">
+                                    <button class="btn btn-primary w-100" onclick="selectPlan('professional')">
+                                        <i class="fas fa-crown me-2"></i>
+                                        Quero Ser PRO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Enterprise Plan -->
+                        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="pricing-card h-100">
+                                <div class="plan-header">
+                                    <h4 class="plan-name">Enterprise</h4>
+                                    <div class="plan-price">
+                                        <span class="currency">R$</span>
+                                        <span class="amount">197</span>
+                                        <span class="period">/mês</span>
+                                    </div>
+                                    <p class="plan-description">Para equipes de vendas</p>
+                                </div>
+
+                                <div class="plan-features">
+                                    <ul class="feature-list">
+                                        <li><i class="fas fa-check text-success"></i> Tudo do Professional</li>
+                                        <li><i class="fas fa-check text-success"></i> Até 10 usuários</li>
+                                        <li><i class="fas fa-check text-success"></i> IA customizada por empresa</li>
+                                        <li><i class="fas fa-check text-success"></i> Integração CRM completa</li>
+                                        <li><i class="fas fa-check text-success"></i> Dashboard gerencial</li>
+                                        <li><i class="fas fa-check text-success"></i> Treinamento exclusivo</li>
+                                        <li><i class="fas fa-check text-success"></i> Account manager dedicado</li>
+                                    </ul>
+                                </div>
+
+                                <div class="plan-cta">
+                                    <button class="btn btn-dark w-100" onclick="selectPlan('enterprise')">
+                                        Falar com Especialista
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Offer Banner -->
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="offer-banner">
+                        <div class="offer-content">
+                            <h5 class="fw-bold text-warning mb-2">
+                                🔥 OFERTA LIMITADA - Só Hoje!
+                            </h5>
+                            <p class="mb-3">
+                                <strong>2 meses GRÁTIS</strong> no plano anual + Bônus exclusivo:
+                                "Playbook dos 50 Melhores Scripts de Venda"
+                            </p>
+                            <div class="offer-timer">
+                                <span class="me-2">Termina em:</span>
+                                <span id="offerCountdown" class="fw-bold text-warning">23:47:32</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Money Back Guarantee -->
+            <div class="row mt-5">
+                <div class="col-lg-6 mx-auto text-center" data-aos="fade-up">
+                    <div class="guarantee-section">
+                        <div class="guarantee-badge">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5 class="fw-bold">Garantia Blindada de 30 Dias</h5>
+                        <p class="text-muted">
+                            Não aumentou suas vendas em 30 dias? Devolvemos 100% +
+                            <strong>R$ 100 de bônus</strong> pelo tempo investido.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="h1 fw-bold mb-4">Perguntas que Todo Vendedor Faz</h2>
+                    <p class="lead text-muted">
+                        Esclarecemos suas dúvidas para você tomar a decisão certa
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion" id="faqAccordion" data-aos="fade-up">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    A IA realmente funciona para meu tipo de venda?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <strong>Sim!</strong> Nossa IA foi treinada com dados de vendas de +500 setores diferentes.
+                                    Funciona para B2B, B2C, vendas consultivas, transacionais, alto valor, baixo valor,
+                                    presencial, online, telefone, WhatsApp. Se envolve persuasão humana, nossa IA domina.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    E se eu for vendedor iniciante? Vai funcionar?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <strong>Perfeito para iniciantes!</strong> A IA é como ter um mentor de vendas 24/7.
+                                    Ela te ensina o que falar, como falar, quando falar. Muitos iniciantes superam
+                                    veteranos porque seguem exatamente o que a IA sugere.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Quanto tempo demora para ver resultados?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <strong>Primeira semana:</strong> Você já nota diferença na resposta dos clientes.<br>
+                                    <strong>Primeiro mês:</strong> Aumento médio de 35-67% nas vendas.<br>
+                                    <strong>Terceiro mês:</strong> Você se torna um dos top performers da empresa.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    É difícil de usar? Sou meio "analógico"...
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <strong>Mais fácil que WhatsApp!</strong> Cole a conversa, clique "analisar",
+                                    pronto. A IA faz todo o trabalho pesado. Nossos usuários de 60+ anos dominam em 2 dias.
+                                    + Suporte humano para tirar qualquer dúvida.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    E se meu chefe descobrir que uso IA?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <strong>Ele vai querer contratar a IA para toda equipe!</strong> 😄 Usar ferramentas
+                                    inteligentes é ser profissional moderno. É como usar GPS em vez de mapa de papel.
+                                    Seus resultados vão falar por si só.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                    Posso cancelar quando quiser?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <strong>Claro!</strong> 1 clique e pronto. Sem pegadinhas, sem taxas, sem burocracia.
+                                    Mas apostamos que após ver seus resultados, você não vai querer cancelar nunca.
+                                    😉 + 30 dias de garantia total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta-section py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold mb-4">
+                        Pare de Perder Vendas. <br>
+                        <span class="text-warning">Comece a Dominar Hoje.</span>
+                    </h2>
+
+                    <p class="lead mb-4">
+                        Enquanto você está lendo, seus concorrentes estão fechando negócios.
+                        <strong>Cada dia que passa é dinheiro perdido.</strong>
+                    </p>
+
+                    <div class="urgency-box mb-4">
+                        <div class="urgency-content">
+                            <h5 class="fw-bold text-warning">⚠️ ATENÇÃO: Oferta Especial Expira em</h5>
+                            <div class="countdown-final" id="finalCountdown">
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="hours">23</span>
+                                    <span class="countdown-label">Horas</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="minutes">45</span>
+                                    <span class="countdown-label">Min</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="seconds">30</span>
+                                    <span class="countdown-label">Seg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="final-offer mb-4">
+                        <h4 class="fw-bold">
+                            🎁 BÔNUS EXCLUSIVO: Primeiros 100 cadastros ganham
+                        </h4>
+                        <ul class="bonus-list">
+                            <li>✅ Playbook "50 Scripts que Sempre Vendem" (R$ 297)</li>
+                            <li>✅ Curso "Psicologia da Persuasão" (R$ 497)</li>
+                            <li>✅ 1 hora de consultoria individual (R$ 400)</li>
+                            <li>✅ Acesso vitalício ao grupo VIP no Telegram</li>
+                        </ul>
+                        <p class="bonus-value">
+                            <strong>Valor total dos bônus: R$ 1.194</strong>
+                            <span class="text-warning">(GRÁTIS hoje)</span>
+                        </p>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <button class="btn btn-warning btn-lg px-5 py-3 me-3 fw-bold" onclick="startFreeTrial()">
+                            <i class="fas fa-rocket me-2"></i>
+                            QUERO DOBRAR MINHAS VENDAS AGORA
+                        </button>
+                        <br><br>
+                        <button class="btn btn-outline-light" onclick="showDemo()">
+                            <i class="fas fa-play me-2"></i>
+                            Ou assistir demo de 2 min
+                        </button>
+                    </div>
+
+                    <div class="final-guarantee mt-4">
+                        <p class="small opacity-75">
+                            🛡️ <strong>Garantia Blindada:</strong> 30 dias para testar. Não funcionou?
+                            Devolvemos tudo + R$ 100 de bônus. <strong>Risco zero para você.</strong>
+                        </p>
+                    </div>
+
+                    <div class="social-proof-final mt-4">
+                        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                            <small class="opacity-75">Junte-se a</small>
+                            <strong class="text-warning">2.547 vendedores</strong>
+                            <small class="opacity-75">que já dominam suas vendas</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Capture Modal -->
+    <div class="modal fade" id="leadModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h4 class="modal-title fw-bold">
+                        🚀 Comece Sua Transformação Agora
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold mb-3">O que você ganha:</h5>
+                            <ul class="benefit-list">
+                                <li><i class="fas fa-check text-success"></i> 7 dias de teste GRÁTIS</li>
+                                <li><i class="fas fa-check text-success"></i> Análises ilimitadas</li>
+                                <li><i class="fas fa-check text-success"></i> Suporte prioritário</li>
+                                <li><i class="fas fa-check text-success"></i> Bônus exclusivos</li>
+                                <li><i class="fas fa-check text-success"></i> Garantia de 30 dias</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <form id="leadCaptureForm" onsubmit="submitLead(event)">
+                                <div class="mb-3">
+                                    <label class="form-label">Nome completo:</label>
+                                    <input type="text" class="form-control" id="leadName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email profissional:</label>
+                                    <input type="email" class="form-control" id="leadEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">WhatsApp:</label>
+                                    <input type="tel" class="form-control" id="leadWhatsapp" placeholder="(11) 99999-9999">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Área de vendas:</label>
+                                    <select class="form-select" id="leadArea" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="b2b">Vendas B2B</option>
+                                        <option value="b2c">Vendas B2C</option>
+                                        <option value="real-estate">Imobiliário</option>
+                                        <option value="insurance">Seguros</option>
+                                        <option value="automotive">Automóveis</option>
+                                        <option value="saas">Software/SaaS</option>
+                                        <option value="consulting">Consultoria</option>
+                                        <option value="other">Outros</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Faturamento mensal atual:</label>
+                                    <select class="form-select" id="leadRevenue">
+                                        <option value="">Prefiro não informar</option>
+                                        <option value="0-5k">Até R$ 5.000</option>
+                                        <option value="5k-15k">R$ 5.000 - R$ 15.000</option>
+                                        <option value="15k-30k">R$ 15.000 - R$ 30.000</option>
+                                        <option value="30k-50k">R$ 30.000 - R$ 50.000</option>
+                                        <option value="50k+">Mais de R$ 50.000</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 btn-lg" id="submitBtn">
+                                    <i class="fas fa-rocket me-2"></i>
+                                    COMEÇAR TESTE GRÁTIS AGORA
+                                </button>
+                                <p class="small text-muted text-center mt-2">
+                                    🔒 Seus dados estão seguros. Usaremos apenas para criar sua conta.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body py-5">
+                    <div class="success-icon mb-3">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">🎉 Parabéns! Você está dentro!</h3>
+                    <p class="mb-4">
+                        Enviamos seu acesso para o email cadastrado.
+                        Nos próximos 5 minutos você receberá:
+                    </p>
+                    <ul class="text-start mb-4">
+                        <li>✅ Link de acesso à plataforma</li>
+                        <li>✅ Tutorial em vídeo "Primeiros Passos"</li>
+                        <li>✅ Playbook "50 Scripts que Sempre Vendem"</li>
+                        <li>✅ Convite para grupo VIP no Telegram</li>
+                    </ul>
+                    <div class="whatsapp-cta">
+                        <p class="fw-bold">💬 Quer suporte instantâneo?</p>
+                        <button class="btn btn-success" onclick="openWhatsApp()">
+                            <i class="fab fa-whatsapp me-2"></i>
+                            Falar no WhatsApp Agora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5511999999999?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Personal%20AI%20Assistant"
+           target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">Fale Conosco</span>
+        </a>
+    </div>
+
+    <!-- Live Chat Notifications -->
+    <div class="live-notifications">
+        <div class="notification" id="liveNotification">
+            <div class="notification-content">
+                <img src="https://i.pravatar.cc/40" alt="User" class="notification-avatar">
+                <div class="notification-text">
+                    <strong>João Silva</strong> acabou de aumentar suas vendas em 89%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JS -->
+    <script src="sales-script.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html>

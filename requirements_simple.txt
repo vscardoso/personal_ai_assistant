@@ -1,0 +1,10 @@
+# Simplified requirements with latest versions that have Windows wheels
+fastapi
+uvicorn[standard]
+python-multipart
+sqlalchemy
+openai
+tenacity
+pydantic
+python-dotenv
+httpx

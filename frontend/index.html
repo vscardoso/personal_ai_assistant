@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal AI Assistant - Transforme Suas Conversas em Conexões Poderosas</title>
+    <meta name="description" content="Analise sua personalidade comunicativa e receba sugestões inteligentes para cada conversa. Melhore relacionamentos pessoais e profissionais em 7 dias.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://personalaiassistant.com/">
+    <meta property="og:title" content="Personal AI Assistant - Transforme Suas Conversas">
+    <meta property="og:description" content="IA que analisa conversas e sugere respostas personalizadas">
+    <meta property="og:image" content="https://personalaiassistant.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://personalaiassistant.com/">
+    <meta property="twitter:title" content="Personal AI Assistant - Transforme Suas Conversas">
+    <meta property="twitter:description" content="IA que analisa conversas e sugere respostas personalizadas">
+    <meta property="twitter:image" content="https://personalaiassistant.com/twitter-image.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+
+        // Track events
+        function trackEvent(action, category, label) {
+            gtag('event', action, {
+                event_category: category,
+                event_label: label
+            });
+        }
+    </script>
+
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-brain"></i>
+                <span>Personal AI</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#demo" class="nav-link">Demo</a>
+                <a href="#features" class="nav-link">Recursos</a>
+                <a href="#pricing" class="nav-link">Preços</a>
+                <button class="btn btn-primary" onclick="scrollToDemo()">Teste Grátis</button>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Transforme Suas Conversas em
+                        <span class="gradient-text">Conexões Poderosas</span> com IA
+                    </h1>
+                    <p class="hero-subtitle">
+                        Analise sua personalidade comunicativa e receba sugestões inteligentes
+                        para cada conversa. Melhore relacionamentos pessoais e profissionais em 7 dias.
+                    </p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary btn-lg" onclick="scrollToDemo()" id="hero-cta">
+                            <i class="fas fa-rocket"></i>
+                            Experimente Grátis por 7 Dias
+                        </button>
+                        <p class="cta-subtitle">✨ Sem cartão de crédito • Resultados garantidos</p>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">1.247</span>
+                            <span class="stat-label">Conversas Analisadas</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">67%</span>
+                            <span class="stat-label">Melhoria Média</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">4.9/5</span>
+                            <span class="stat-label">Avaliação</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="demo-preview">
+                        <div class="demo-window">
+                            <div class="window-header">
+                                <div class="window-controls">
+                                    <span class="control red"></span>
+                                    <span class="control yellow"></span>
+                                    <span class="control green"></span>
+                                </div>
+                                <span class="window-title">Personal AI Assistant</span>
+                            </div>
+                            <div class="window-content">
+                                <div class="chat-preview">
+                                    <div class="message user">
+                                        Oi amor, podemos conversar?
+                                    </div>
+                                    <div class="typing-indicator">
+                                        <div class="typing-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ai-suggestions">
+                                    <div class="suggestion">
+                                        <span class="suggestion-tone">Empático</span>
+                                        <p>"Claro! Estou aqui para você. O que está acontecendo?"</p>
+                                    </div>
+                                    <div class="suggestion">
+                                        <span class="suggestion-tone">Casual</span>
+                                        <p>"Oi! Sim, pode falar. Tudo bem?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="section-header">
+                <h2>Você já perdeu oportunidades por não saber como responder?</h2>
+                <p>A comunicação é o maior desafio de 73% dos profissionais</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">❌</div>
+                    <h3>Mensagens Mal Interpretadas</h3>
+                    <p>Suas palavras são entendidas de forma errada, gerando conflitos desnecessários</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Oportunidades Perdidas</h3>
+                    <p>Vendas que não fecham, promoções que não vêm por falta de comunicação assertiva</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">😔</div>
+                    <h3>Relacionamentos Fragilizados</h3>
+                    <p>Discussões frequentes que poderiam ser evitadas com melhor comunicação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Interactive Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2>Teste Sua Conversa em 2 Minutos</h2>
+                <p>Veja como nossa IA analisa e melhora sua comunicação</p>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-tabs">
+                    <button class="tab-btn active" data-tab="personality">
+                        <i class="fas fa-user-circle"></i>
+                        Análise de Personalidade
+                    </button>
+                    <button class="tab-btn" data-tab="suggestions">
+                        <i class="fas fa-lightbulb"></i>
+                        Sugestões de Resposta
+                    </button>
+                </div>
+
+                <!-- Personality Analysis Demo -->
+                <div class="demo-content active" id="personality-demo">
+                    <div class="demo-form">
+                        <div class="input-group">
+                            <label for="conversation-text">Cole uma conversa recente aqui:</label>
+                            <textarea
+                                id="conversation-text"
+                                placeholder="Ex: Oi amor, como foi seu dia no trabalho? Eu estava pensando que talvez pudéssemos sair para jantar hoje..."
+                                rows="4"
+                            ></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label for="relationship-type">Tipo de relacionamento:</label>
+                            <select id="relationship-type">
+                                <option value="romantic">Romântico</option>
+                                <option value="professional">Profissional</option>
+                                <option value="family">Familiar</option>
+                                <option value="friend">Amizade</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="analyzePersonality()" id="analyze-btn">
+                            <i class="fas fa-brain"></i>
+                            Analisar Agora
+                        </button>
+                    </div>
+                    <div class="demo-result" id="personality-result" style="display: none;">
+                        <div class="result-header">
+                            <h3>🎯 Sua Análise de Personalidade</h3>
+                            <div class="communication-score">
+                                <span class="score-label">Score de Comunicação:</span>
+                                <span class="score-value" id="comm-score">8.5</span>
+                                <span class="score-max">/10</span>
+                            </div>
+                        </div>
+                        <div class="insights-grid" id="insights-container">
+                            <!-- Insights will be populated here -->
+                        </div>
+                        <div class="result-cta">
+                            <p>✨ Gostou? Veja sua análise completa e receba sugestões personalizadas!</p>
+                            <button class="btn btn-primary" onclick="showLeadForm()">
+                                Ver Análise Completa Grátis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Suggestions Demo -->
+                <div class="demo-content" id="suggestions-demo">
+                    <div class="scenario-selector">
+                        <h3>Escolha um cenário:</h3>
+                        <div class="scenarios">
+                            <button class="scenario-btn active" data-scenario="client">
+                                Cliente: "Preciso pensar melhor sobre essa proposta"
+                            </button>
+                            <button class="scenario-btn" data-scenario="partner">
+                                Parceiro(a): "Você nunca me escuta quando falo"
+                            </button>
+                            <button class="scenario-btn" data-scenario="boss">
+                                Chefe: "Não estou satisfeito com seu desempenho"
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tone-selector">
+                        <h4>Escolha o tom da resposta:</h4>
+                        <div class="tone-options">
+                            <label class="tone-option">
+                                <input type="radio" name="tone" value="empathetic" checked>
+                                <span class="tone-label">😊 Empático</span>
+                            </label>
+                            <label class="tone-option">
+                                <input type="radio" name="tone" value="assertive">
+                                <span class="tone-label">💪 Assertivo</span>
+                            </label>
+                            <label class="tone-option">
+                                <input type="radio" name="tone" value="professional">
+                                <span class="tone-label">👔 Profissional</span>
+                            </label>
+                            <label class="tone-option">
+                                <input type="radio" name="tone" value="casual">
+                                <span class="tone-label">😎 Casual</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="generateSuggestions()" id="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        Gerar Sugestões
+                    </button>
+                    <div class="suggestions-result" id="suggestions-result" style="display: none;">
+                        <h4>🎭 Suas 3 Sugestões Personalizadas:</h4>
+                        <div class="suggestions-list" id="suggestions-list">
+                            <!-- Suggestions will be populated here -->
+                        </div>
+                        <div class="result-cta">
+                            <p>💡 Teste com suas conversas reais e receba análises ilimitadas!</p>
+                            <button class="btn btn-primary" onclick="showLeadForm()">
+                                Começar Teste Gratuito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Capture Modal -->
+    <div class="modal" id="lead-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🎉 Comece Sua Transformação Comunicativa</h3>
+                <button class="modal-close" onclick="closeLeadForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Receba sua análise completa + 7 dias de sugestões personalizadas GRÁTIS!</p>
+                <form id="lead-form" onsubmit="submitLead(event)">
+                    <div class="form-group">
+                        <input type="text" id="lead-name" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="lead-email" placeholder="Seu melhor email" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="lead-interest" required>
+                            <option value="">Seu maior interesse é...</option>
+                            <option value="sales">Melhorar vendas</option>
+                            <option value="relationships">Relacionamentos pessoais</option>
+                            <option value="leadership">Liderança e gestão</option>
+                            <option value="networking">Networking profissional</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-lead-btn">
+                        <i class="fas fa-gift"></i>
+                        Quero Minha Análise Grátis
+                    </button>
+                    <p class="form-disclaimer">
+                        🔒 Seus dados estão seguros. Não compartilhamos com terceiros.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Por que nossa IA é diferente?</h2>
+                <p>Tecnologia avançada que entende nuances humanas</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Análise Profunda</h3>
+                    <p>Identifica padrões emocionais, estilo comunicativo e gatilhos de conflito em segundos</p>
+                    <ul>
+                        <li>Personalidade comunicativa</li>
+                        <li>Padrões emocionais</li>
+                        <li>Pontos de melhoria</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Sugestões Inteligentes</h3>
+                    <p>IA treinada em milhões de conversas para sugerir respostas que geram conexão</p>
+                    <ul>
+                        <li>4 tons diferentes</li>
+                        <li>Contexto específico</li>
+                        <li>Explicação do porquê</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Evolução Contínua</h3>
+                    <p>Acompanhe sua melhoria com métricas e relatórios personalizados</p>
+                    <ul>
+                        <li>Dashboard de evolução</li>
+                        <li>Relatórios semanais</li>
+                        <li>Metas personalizadas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pessoas reais, resultados reais</h2>
+                <p>Veja como outros transformaram suas conversas</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"Minhas vendas aumentaram 67% em 30 dias. A IA me mostrou como adaptar minha comunicação para cada tipo de cliente."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=1" alt="João Silva">
+                        <div>
+                            <strong>João Silva</strong>
+                            <span>Vendedor B2B</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"Salvou meu casamento! Aprendi a me comunicar de forma mais empática e carinhosa. Brigamos 85% menos agora."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=2" alt="Maria Santos">
+                        <div>
+                            <strong>Maria Santos</strong>
+                            <span>Arquiteta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"Como líder, melhorei 45% o engajamento da minha equipe. A ferramenta me ensinou a dar feedback de forma mais eficaz."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=3" alt="Pedro Oliveira">
+                        <div>
+                            <strong>Pedro Oliveira</strong>
+                            <span>Gerente de TI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Escolha seu plano</h2>
+                <p>7 dias grátis para você testar sem compromisso</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Starter</h3>
+                        <div class="plan-price">
+                            <span class="price">Grátis</span>
+                        </div>
+                        <p>Para experimentar</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 10 análises por mês</li>
+                        <li><i class="fas fa-check"></i> Sugestões básicas</li>
+                        <li><i class="fas fa-check"></i> 1 relacionamento</li>
+                        <li><i class="fas fa-times"></i> Relatórios detalhados</li>
+                        <li><i class="fas fa-times"></i> Suporte prioritário</li>
+                    </ul>
+                    <button class="btn btn-outline">Começar Grátis</button>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Mais Popular</div>
+                    <div class="plan-header">
+                        <h3>Pro</h3>
+                        <div class="plan-price">
+                            <span class="price">R$ 29</span>
+                            <span class="period">/mês</span>
+                        </div>
+                        <p>Para crescimento pessoal</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Análises ilimitadas</li>
+                        <li><i class="fas fa-check"></i> IA avançada</li>
+                        <li><i class="fas fa-check"></i> 10 relacionamentos</li>
+                        <li><i class="fas fa-check"></i> Relatórios detalhados</li>
+                        <li><i class="fas fa-check"></i> Suporte por chat</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="showLeadForm()">Teste 7 Dias Grátis</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Business</h3>
+                        <div class="plan-price">
+                            <span class="price">R$ 99</span>
+                            <span class="period">/mês</span>
+                        </div>
+                        <p>Para equipes e empresas</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Tudo do Pro</li>
+                        <li><i class="fas fa-check"></i> Até 20 usuários</li>
+                        <li><i class="fas fa-check"></i> Analytics avançado</li>
+                        <li><i class="fas fa-check"></i> Integração CRM</li>
+                        <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                    </ul>
+                    <button class="btn btn-outline">Falar com Vendas</button>
+                </div>
+            </div>
+            <div class="pricing-guarantee">
+                <div class="guarantee-badge">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="guarantee-text">
+                    <h4>Garantia de 30 dias</h4>
+                    <p>Não melhorou suas conversas? Devolvemos 100% do seu dinheiro + R$ 50 pelo tempo perdido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Perguntas Frequentes</h2>
+                <p>Tire suas dúvidas sobre nossa solução</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>É seguro? Minhas conversas ficam privadas?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutamente seguro! Utilizamos criptografia militar, servidores no Brasil e somos 100% compatíveis com a LGPD. Suas conversas são processadas de forma anônima e nunca compartilhadas.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Funciona para todos os tipos de relacionamento?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Nossa IA foi treinada para relacionamentos românticos, profissionais, familiares e amizades. Ela se adapta automaticamente ao contexto e tipo de conversa.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Quanto tempo leva para ver resultados?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>As primeiras insights aparecem em 5 minutos. Melhorias significativas na comunicação são notadas em 7 dias de uso consistente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>E se eu não souber usar tecnologia?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nossa interface é super simples! Além disso, oferecemos vídeos tutoriais e suporte via WhatsApp para te ajudar em tudo.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Posso cancelar quando quiser?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Claro! Não há fidelidade. Você pode cancelar a qualquer momento com 1 clique. E temos 30 dias de garantia total.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Não Deixe Mais Conversas Importantes Escaparem</h2>
+                <p>Junte-se a 1.247 pessoas que já transformaram suas conversas</p>
+                <div class="urgency-timer">
+                    <div class="timer-text">⏰ Oferta especial termina em:</div>
+                    <div class="countdown" id="countdown">
+                        <span id="hours">23</span>h
+                        <span id="minutes">45</span>m
+                        <span id="seconds">30</span>s
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg" onclick="showLeadForm()">
+                    <i class="fas fa-rocket"></i>
+                    Começar Teste Grátis Agora
+                </button>
+                <div class="recent-signups">
+                    <div class="signup-notification" id="signup-notification">
+                        <img src="https://i.pravatar.cc/40?img=4" alt="Usuário">
+                        <span><strong>Ana Silva</strong> acabou de se inscrever</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-brain"></i>
+                        <span>Personal AI</span>
+                    </div>
+                    <p>Transformando conversas em conexões poderosas através da inteligência artificial.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Produto</h4>
+                        <a href="#features">Recursos</a>
+                        <a href="#pricing">Preços</a>
+                        <a href="#demo">Demo</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Empresa</h4>
+                        <a href="#">Sobre</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Carreiras</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Suporte</h4>
+                        <a href="#">Central de Ajuda</a>
+                        <a href="#">Contato</a>
+                        <a href="#">Status</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Legal</h4>
+                        <a href="#">Privacidade</a>
+                        <a href="#">Termos</a>
+                        <a href="#">LGPD</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Personal AI Assistant. Todos os direitos reservados.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

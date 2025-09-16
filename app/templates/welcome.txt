@@ -1,0 +1,15 @@
+Olá {{ name }},
+
+Obrigado por se inscrever! Seu material está disponível no link abaixo:
+
+{{ materials_link }}
+
+O que você recebe:
+- Análise de personalidade comunicativa
+- Guia prático: 7 passos para respostas mais eficazes
+- Acesso ao teste gratuito por 7 dias
+
+Se você não solicitou este material, ignore este e-mail.
+
+Abraços,
+Equipe Personal AI
