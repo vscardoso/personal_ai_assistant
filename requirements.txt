@@ -1,5 +1,4 @@
-# Criar requirements.txt minimal sem conflitos
-echo 'fastapi
+fastapi
 uvicorn[standard]
 python-multipart
 sqlalchemy
@@ -9,9 +8,4 @@ pydantic
 pydantic-settings
 python-dotenv
 httpx
-jinja2' > requirements.txt
-
-# Fazer commit
-git add requirements.txt
-git commit -m "Minimal requirements without version conflicts"
-git push origin main
+jinja2
