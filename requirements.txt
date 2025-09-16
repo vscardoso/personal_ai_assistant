@@ -1,27 +1,17 @@
-# =============================================================================
-# PERSONAL AI ASSISTANT - RAILWAY PRODUCTION DEPENDENCIES
-# =============================================================================
-
-# Core API Framework - Railway tested versions
-fastapi
+# Criar requirements.txt minimal sem conflitos
+echo 'fastapi
 uvicorn[standard]
 python-multipart
-
-# Database & ORM - PostgreSQL compatible
 sqlalchemy
-psycopg2-binary
-
-# AI & OpenAI Integration
+alembic
 openai
-tenacity
-
-# Data Validation & Settings
 pydantic
 pydantic-settings
 python-dotenv
-
-# HTTP Client
 httpx
+jinja2' > requirements.txt
 
-# Templating for emails
-jinja2
+# Fazer commit
+git add requirements.txt
+git commit -m "Minimal requirements without version conflicts"
+git push origin main
