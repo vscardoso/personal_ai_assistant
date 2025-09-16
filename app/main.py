@@ -26,17 +26,35 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Configure CORS for development and production
+allowed_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "file://"
+]
+
+# Add production origins from environment
+env_origins = os.getenv("ALLOWED_ORIGINS", "")
+if env_origins:
+    additional_origins = [origin.strip() for origin in env_origins.split(",")]
+    allowed_origins.extend(additional_origins)
+
+# In production, allow Railway and custom domains
+environment = os.getenv("ENVIRONMENT", "development")
+if environment == "production":
+    allowed_origins.extend([
+        "https://*.railway.app",
+        "https://*.vercel.app",
+        "https://*.netlify.app"
+    ])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "file://"
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
