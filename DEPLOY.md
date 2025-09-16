@@ -72,16 +72,19 @@ Railway fornece PostgreSQL automaticamente. Não precisa configurar `DATABASE_UR
 ## 📁 Estrutura de Deploy
 
 ### Arquivos Criados:
-- ✅ `Procfile` - Comando de inicialização
+- ✅ `Procfile` - Comando de inicialização + release hook
 - ✅ `railway.json` - Configuração Railway
-- ✅ `requirements.txt` - Dependencies otimizadas
+- ✅ `requirements.txt` - Dependencies mínimas e compatíveis
 - ✅ `.env.production` - Template de variáveis
+- ✅ `init_db.py` - Script de inicialização do banco
+- ✅ `.gitignore` - Segurança de arquivos
 
 ### Como funciona:
 1. **Build**: Railway usa Nixpacks para build automático
-2. **Start**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-3. **Health Check**: `/health` endpoint
-4. **Database**: PostgreSQL automático via Railway
+2. **Release**: `python init_db.py` (criação automática de tabelas)
+3. **Start**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+4. **Health Check**: `/health` endpoint
+5. **Database**: PostgreSQL automático via Railway + SQLite local
 
 ## 🔍 Monitoramento
 

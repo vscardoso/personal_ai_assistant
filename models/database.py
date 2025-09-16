@@ -10,10 +10,26 @@ logger = logging.getLogger(__name__)
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./personal_assistant.db")
 
+# Configure engine based on database type
 if DATABASE_URL.startswith("sqlite"):
-    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        echo=False  # Set to True for SQL debugging
+    )
+elif DATABASE_URL.startswith("postgresql"):
+    engine = create_engine(
+        DATABASE_URL,
+        pool_size=10,
+        max_overflow=20,
+        pool_pre_ping=True,
+        echo=False  # Set to True for SQL debugging
+    )
 else:
-    engine = create_engine(DATABASE_URL)
+    # Generic configuration for other databases
+    engine = create_engine(DATABASE_URL, echo=False)
+
+logger.info(f"Database engine configured for: {DATABASE_URL.split('://')[0]}")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

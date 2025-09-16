@@ -1,30 +1,27 @@
 # =============================================================================
-# PERSONAL AI ASSISTANT - PRODUCTION DEPENDENCIES
+# PERSONAL AI ASSISTANT - RAILWAY PRODUCTION DEPENDENCIES
 # =============================================================================
 
-# Core API Framework
-fastapi>=0.104.1,<1.0.0
-uvicorn[standard]>=0.24.0,<1.0.0
-python-multipart>=0.0.6,<1.0.0
+# Core API Framework - Railway tested versions
+fastapi
+uvicorn[standard]
+python-multipart
 
-# Database & ORM
-sqlalchemy>=2.0.23,<3.0.0
-alembic>=1.12.1,<2.0.0
+# Database & ORM - PostgreSQL compatible
+sqlalchemy
+psycopg2-binary
 
 # AI & OpenAI Integration
-openai>=1.45.0,<2.0.0
-tenacity>=8.2.3,<9.0.0
+openai
+tenacity
 
 # Data Validation & Settings
-pydantic>=2.5.0,<3.0.0
-pydantic-settings>=2.1.0,<3.0.0
-python-dotenv>=1.0.0,<2.0.0
+pydantic
+pydantic-settings
+python-dotenv
 
-# HTTP & Email
-httpx>=0.25.2,<1.0.0
+# HTTP Client
+httpx
 
-# Templating & Email
-jinja2>=3.1.2,<4.0.0
-
-# Environment & Configuration
-typing-extensions>=4.8.0,<5.0.0
+# Templating for emails
+jinja2
