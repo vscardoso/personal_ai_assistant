@@ -169,6 +169,14 @@ railway logs --follow
    - ✅ App funciona sem email
    - ✅ Configure SMTP quando necessário
 
+5. **Railway healthcheck falhando**:
+   - ✅ Causa comum: o processo não está escutando na porta fornecida pela plataforma. O Railway injeta a variável de ambiente `PORT` que deve ser usada no comando de start.
+   - ✅ Solução rápida: adicione um `Procfile` com o comando de start que usa `$PORT`, por exemplo:
+     ```text
+     web: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+     ```
+   - ✅ Verifique também que o app responde rapidamente no endpoint de health (`/health`) para passar no healthcheck. Se houver tarefas de inicialização longas, considere responder `200` em `/health` antes de executar rotinas demoradas em segundo plano.
+
 ### Debug Commands:
 ```bash
 # Logs em tempo real
