@@ -1,6 +1,7 @@
 // Sales Landing Page - Advanced JavaScript with API Integration
 // API Configuration
-const API_BASE_URL = 'http://localhost:8000';
+// const API_BASE_URL = 'http://localhost:8000';
+const API_URL = 'https://personalaiassistant-production.up.railway.app';
 
 // Global state
 let currentUser = null;
