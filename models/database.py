@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Text, ForeignKey, Float
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Text, ForeignKey, Float, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session, relationship
 from sqlalchemy.sql import func
@@ -164,6 +164,77 @@ class ConversationAnalysis(Base):
     def __repr__(self):
         return f"<ConversationAnalysis(id={self.id}, type='{self.analysis_type}')>"
 
+# =============================================================================
+# SALES ASSISTANT MODELS
+# =============================================================================
+
+class Campaign(Base):
+    __tablename__ = "campaigns"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(200), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    description = Column(Text, nullable=True)
+    status = Column(String(50), default="active")  # active, paused, completed
+    total_prospects = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    user = relationship("User")
+    prospects = relationship("Prospect", back_populates="campaign", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Campaign(id={self.id}, name='{self.name}', prospects={self.total_prospects})>"
+
+class Prospect(Base):
+    __tablename__ = "prospects"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), nullable=False)
+    company = Column(String(200), nullable=True)
+    email = Column(String(255), nullable=False, index=True)
+    title = Column(String(150), nullable=True)
+    linkedin_url = Column(String(500), nullable=True)
+    research_data = Column(JSON, nullable=True)  # JSON field for flexible research data
+    campaign_id = Column(Integer, ForeignKey("campaigns.id"), nullable=False)
+    status = Column(String(50), default="new")  # new, contacted, replied, closed, unqualified
+    score = Column(Integer, default=0)  # Lead scoring 0-100
+    tags = Column(String(500), nullable=True)  # Comma-separated tags
+    notes = Column(Text, nullable=True)
+    last_contact = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    campaign = relationship("Campaign", back_populates="prospects")
+    email_sequences = relationship("EmailSequence", back_populates="prospect", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Prospect(id={self.id}, name='{self.name}', company='{self.company}', status='{self.status}')>"
+
+class EmailSequence(Base):
+    __tablename__ = "email_sequences"
+
+    id = Column(Integer, primary_key=True, index=True)
+    prospect_id = Column(Integer, ForeignKey("prospects.id"), nullable=False)
+    step = Column(Integer, nullable=False)  # Sequence step number (1, 2, 3, etc.)
+    subject = Column(String(500), nullable=False)
+    body = Column(Text, nullable=False)
+    template_name = Column(String(100), nullable=True)  # Reference to email template
+    sent_at = Column(DateTime(timezone=True), nullable=True)
+    opened_at = Column(DateTime(timezone=True), nullable=True)
+    clicked_at = Column(DateTime(timezone=True), nullable=True)
+    replied_at = Column(DateTime(timezone=True), nullable=True)
+    status = Column(String(50), default="pending")  # pending, sent, delivered, opened, clicked, replied, bounced
+    scheduled_for = Column(DateTime(timezone=True), nullable=True)  # When to send
+    error_message = Column(Text, nullable=True)  # If sending failed
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    prospect = relationship("Prospect", back_populates="email_sequences")
+
+    def __repr__(self):
+        return f"<EmailSequence(id={self.id}, prospect_id={self.prospect_id}, step={self.step}, status='{self.status}')>"
+
 def create_tables():
     try:
         Base.metadata.create_all(bind=engine)
@@ -262,6 +333,122 @@ def save_personality_insight(db: Session, user_id: int, insight_type: str,
     db.commit()
     db.refresh(insight)
     return insight
+
+# =============================================================================
+# SALES ASSISTANT HELPER FUNCTIONS
+# =============================================================================
+
+def create_campaign(db: Session, user_id: int, name: str, description: str = None):
+    """Create a new sales campaign."""
+    campaign = Campaign(
+        user_id=user_id,
+        name=name,
+        description=description
+    )
+    db.add(campaign)
+    db.commit()
+    db.refresh(campaign)
+    return campaign
+
+def get_user_campaigns(db: Session, user_id: int):
+    """Get all campaigns for a user."""
+    return db.query(Campaign)\
+        .filter(Campaign.user_id == user_id)\
+        .order_by(Campaign.created_at.desc())\
+        .all()
+
+def create_prospect(db: Session, campaign_id: int, name: str, email: str,
+                   company: str = None, title: str = None, linkedin_url: str = None,
+                   research_data: dict = None):
+    """Create a new prospect."""
+    prospect = Prospect(
+        campaign_id=campaign_id,
+        name=name,
+        email=email,
+        company=company,
+        title=title,
+        linkedin_url=linkedin_url,
+        research_data=research_data
+    )
+    db.add(prospect)
+
+    # Update campaign prospect count
+    campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
+    if campaign:
+        campaign.total_prospects += 1
+
+    db.commit()
+    db.refresh(prospect)
+    return prospect
+
+def get_campaign_prospects(db: Session, campaign_id: int):
+    """Get all prospects for a campaign."""
+    return db.query(Prospect)\
+        .filter(Prospect.campaign_id == campaign_id)\
+        .order_by(Prospect.created_at.desc())\
+        .all()
+
+def create_email_sequence(db: Session, prospect_id: int, step: int, subject: str,
+                         body: str, template_name: str = None, scheduled_for = None):
+    """Create a new email in sequence."""
+    email = EmailSequence(
+        prospect_id=prospect_id,
+        step=step,
+        subject=subject,
+        body=body,
+        template_name=template_name,
+        scheduled_for=scheduled_for
+    )
+    db.add(email)
+    db.commit()
+    db.refresh(email)
+    return email
+
+def get_prospect_emails(db: Session, prospect_id: int):
+    """Get all emails for a prospect."""
+    return db.query(EmailSequence)\
+        .filter(EmailSequence.prospect_id == prospect_id)\
+        .order_by(EmailSequence.step.asc())\
+        .all()
+
+def update_email_status(db: Session, email_id: int, status: str,
+                       sent_at = None, opened_at = None, clicked_at = None, replied_at = None):
+    """Update email sequence status and timestamps."""
+    email = db.query(EmailSequence).filter(EmailSequence.id == email_id).first()
+    if email:
+        email.status = status
+        if sent_at:
+            email.sent_at = sent_at
+        if opened_at:
+            email.opened_at = opened_at
+        if clicked_at:
+            email.clicked_at = clicked_at
+        if replied_at:
+            email.replied_at = replied_at
+        db.commit()
+        db.refresh(email)
+    return email
+
+def update_prospect_status(db: Session, prospect_id: int, status: str, notes: str = None):
+    """Update prospect status and notes."""
+    prospect = db.query(Prospect).filter(Prospect.id == prospect_id).first()
+    if prospect:
+        prospect.status = status
+        prospect.last_contact = func.now()
+        if notes:
+            prospect.notes = notes
+        db.commit()
+        db.refresh(prospect)
+    return prospect
+
+def get_pending_emails(db: Session, limit: int = 50):
+    """Get emails scheduled to be sent."""
+    from datetime import datetime
+    return db.query(EmailSequence)\
+        .filter(EmailSequence.status == "pending")\
+        .filter(EmailSequence.scheduled_for <= datetime.utcnow())\
+        .limit(limit)\
+        .all()
 
 if __name__ == "__main__":
     create_tables()
