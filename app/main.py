@@ -550,6 +550,19 @@ async def research_prospect_apollo(request: ProspectResearchRequest):
                 detail=f"Apollo.io API error: {str(e)}"
             )
 
+@app.get("/api/debug/apollo-status")
+async def apollo_debug_status():
+    """Debug endpoint to check Apollo.io service status"""
+    import os
+    api_key = os.getenv("APOLLO_API_KEY")
+
+    return {
+        "apollo_api_key_configured": bool(api_key),
+        "apollo_api_key_length": len(api_key) if api_key else 0,
+        "apollo_api_key_prefix": api_key[:10] if api_key else None,
+        "apollo_service_initialized": apollo_service is not None
+    }
+
 if __name__ == "__main__":
     import uvicorn
 
