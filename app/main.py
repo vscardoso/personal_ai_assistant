@@ -6,11 +6,13 @@ from typing import List, Optional
 import json
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, date
+from sqlalchemy import func
 
-from models.database import get_db, User, Conversation, Relationship
+from models.database import get_db, User, Conversation, Relationship, Prospect, Campaign
 from services.ai_service import AIService
 from services.email_service import email_service
+from services.apollo_service import apollo_service
 from fastapi import BackgroundTasks
 from sqlalchemy.orm import Session
 
@@ -76,6 +78,15 @@ class ResponseSuggestion(BaseModel):
     message: str = Field(..., min_length=1)
     tone: str = Field(..., pattern=r'^(formal|casual|empathetic|assertive)$')
     context: Optional[str] = None
+
+class ProspectResearch(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    company: str = Field(..., min_length=1, max_length=200)
+
+class ProspectResearchRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100, description="Full name of the person")
+    company: str = Field(..., min_length=1, max_length=200, description="Company name")
+    linkedin_url: Optional[str] = Field(None, max_length=500, description="LinkedIn profile URL (optional)")
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
@@ -328,6 +339,216 @@ async def send_materials(request: MaterialsRequest, db: Session = Depends(get_db
     except Exception as e:
         logger.exception("Failed to send materials email")
         raise HTTPException(status_code=500, detail="Failed to send materials")
+
+@app.post("/api/research/prospect", status_code=status.HTTP_201_CREATED)
+async def research_prospect(prospect_data: ProspectResearch, db: Session = Depends(get_db)):
+    try:
+        # For now, we'll create a default campaign if none exists
+        # In production, you might want to require a campaign_id parameter
+        default_campaign = db.query(Campaign).filter(Campaign.name == "Default Research").first()
+        if not default_campaign:
+            default_campaign = Campaign(
+                name="Default Research",
+                user_id=1,  # You might want to get this from authentication context
+                description="Default campaign for prospect research"
+            )
+            db.add(default_campaign)
+            db.commit()
+            db.refresh(default_campaign)
+
+        # Check if prospect already exists
+        existing_prospect = db.query(Prospect).filter(
+            Prospect.name == prospect_data.name,
+            Prospect.company == prospect_data.company
+        ).first()
+
+        if existing_prospect:
+            raise HTTPException(
+                status_code=400,
+                detail="Prospect with this name and company already exists"
+            )
+
+        # Create new prospect with empty basic_info
+        new_prospect = Prospect(
+            name=prospect_data.name,
+            company=prospect_data.company,
+            email=f"temp_{prospect_data.name.lower().replace(' ', '_')}@example.com",  # Temporary email
+            campaign_id=default_campaign.id,
+            research_data={"basic_info": {}}  # Empty basic_info as requested
+        )
+
+        db.add(new_prospect)
+
+        # Update campaign prospect count
+        default_campaign.total_prospects += 1
+
+        db.commit()
+        db.refresh(new_prospect)
+
+        logger.info(f"Prospect research created: {prospect_data.name} at {prospect_data.company}")
+
+        return {
+            "id": new_prospect.id,
+            "name": new_prospect.name,
+            "company": new_prospect.company,
+            "basic_info": new_prospect.research_data.get("basic_info", {}),
+            "status": new_prospect.status,
+            "created_at": new_prospect.created_at
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating prospect research: {e}")
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Failed to create prospect research")
+
+@app.get("/api/analytics/prospects")
+async def get_prospects_analytics(db: Session = Depends(get_db)):
+    try:
+        # Get today's date
+        today = date.today()
+
+        # Total prospects researched today
+        prospects_today = db.query(Prospect).filter(
+            func.date(Prospect.created_at) == today
+        ).count()
+
+        # Total prospects ever
+        total_prospects = db.query(Prospect).count()
+
+        # Calculate email success rate (prospects with non-temporary emails)
+        prospects_with_email = db.query(Prospect).filter(
+            Prospect.email.isnot(None),
+            ~Prospect.email.like('temp_%@example.com')  # Exclude temporary emails
+        ).count()
+
+        email_success_rate = 0.0
+        if total_prospects > 0:
+            email_success_rate = round((prospects_with_email / total_prospects) * 100, 1)
+
+        # Get latest 10 prospects
+        latest_prospects = db.query(Prospect).order_by(
+            Prospect.created_at.desc()
+        ).limit(10).all()
+
+        # Format prospects for response
+        prospects_list = []
+        for prospect in latest_prospects:
+            # Check if prospect has real email (not temporary)
+            has_email = (
+                prospect.email and
+                not prospect.email.startswith('temp_') and
+                '@example.com' not in prospect.email
+            )
+
+            prospects_list.append({
+                "id": prospect.id,
+                "name": prospect.name,
+                "company": prospect.company,
+                "status": prospect.status,
+                "has_email": has_email,
+                "email": prospect.email if has_email else None,
+                "created_at": prospect.created_at.strftime('%Y-%m-%d %H:%M')
+            })
+
+        logger.info(f"Analytics requested: {prospects_today} prospects today, {email_success_rate}% success rate")
+
+        return {
+            "prospects_today": prospects_today,
+            "total_prospects": total_prospects,
+            "email_success_rate": email_success_rate,
+            "prospects_with_email": prospects_with_email,
+            "latest_prospects": prospects_list,
+            "generated_at": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        }
+
+    except Exception as e:
+        logger.error(f"Error getting prospects analytics: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get analytics data")
+
+@app.post("/api/research/apollo")
+async def research_prospect_apollo(request: ProspectResearchRequest):
+    """
+    Research a prospect using Apollo.io API
+
+    Returns enriched prospect data including email, LinkedIn, title, and company info
+    """
+    try:
+        # Validate input
+        if not request.name.strip() or not request.company.strip():
+            raise HTTPException(
+                status_code=400,
+                detail="Name and company are required and cannot be empty"
+            )
+
+        logger.info(f"Starting Apollo research for: {request.name} at {request.company}")
+
+        # Call Apollo.io API
+        apollo_result = await apollo_service.search_person_by_name_company(
+            request.name,
+            request.company
+        )
+
+        if apollo_result is None:
+            logger.warning(f"No Apollo data found for {request.name} at {request.company}")
+            return {
+                "success": False,
+                "message": "No data found for the specified person and company",
+                "data": {
+                    "name": request.name,
+                    "company": request.company,
+                    "linkedin_url": request.linkedin_url,
+                    "apollo_data": None,
+                    "enriched": False,
+                    "error": "No data found in Apollo.io database"
+                }
+            }
+
+        # Format standardized response
+        standardized_data = {
+            "name": request.name,
+            "company": request.company,
+            "linkedin_url": apollo_result.get("linkedin_url") or request.linkedin_url,
+            "email": apollo_result.get("email"),
+            "title": apollo_result.get("title"),
+            "company_info": apollo_result.get("company_info", {}),
+            "apollo_data": apollo_result,  # Complete Apollo response
+            "enriched": True,
+            "data_source": "apollo",
+            "researched_at": datetime.utcnow().isoformat()
+        }
+
+        logger.info(f"Successfully retrieved Apollo data for {request.name}")
+
+        return {
+            "success": True,
+            "message": "Prospect data successfully retrieved from Apollo.io",
+            "data": standardized_data
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error during Apollo research for {request.name}: {str(e)}")
+
+        # Check if it's an Apollo API error
+        error_message = str(e).lower()
+        if "authentication" in error_message or "api key" in error_message:
+            raise HTTPException(
+                status_code=500,
+                detail="Apollo.io API authentication failed. Please check API key configuration."
+            )
+        elif "rate limit" in error_message:
+            raise HTTPException(
+                status_code=500,
+                detail="Apollo.io API rate limit exceeded. Please try again later."
+            )
+        else:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Apollo.io API error: {str(e)}"
+            )
 
 if __name__ == "__main__":
     import uvicorn

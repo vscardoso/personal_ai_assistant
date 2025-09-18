@@ -192,16 +192,18 @@ class Prospect(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
     company = Column(String(200), nullable=True)
-    email = Column(String(255), nullable=False, index=True)
+    email = Column(String(255), nullable=True, index=True)  # Changed to nullable for compatibility
     title = Column(String(150), nullable=True)
     linkedin_url = Column(String(500), nullable=True)
     research_data = Column(JSON, nullable=True)  # JSON field for flexible research data
-    campaign_id = Column(Integer, ForeignKey("campaigns.id"), nullable=False)
-    status = Column(String(50), default="new")  # new, contacted, replied, closed, unqualified
+    apollo_data = Column(JSON, nullable=True)  # JSON field for complete Apollo.io data
+    campaign_id = Column(Integer, ForeignKey("campaigns.id"), nullable=True)  # Made nullable for standalone prospects
+    status = Column(String(50), default="pending")  # pending, completed, error, new, contacted, replied, closed, unqualified
     score = Column(Integer, default=0)  # Lead scoring 0-100
     tags = Column(String(500), nullable=True)  # Comma-separated tags
     notes = Column(Text, nullable=True)
     last_contact = Column(DateTime(timezone=True), nullable=True)
+    researched_at = Column(DateTime(timezone=True), nullable=True)  # Timestamp for research completion
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
@@ -357,28 +359,53 @@ def get_user_campaigns(db: Session, user_id: int):
         .order_by(Campaign.created_at.desc())\
         .all()
 
-def create_prospect(db: Session, campaign_id: int, name: str, email: str,
-                   company: str = None, title: str = None, linkedin_url: str = None,
-                   research_data: dict = None):
+def create_prospect(db: Session, name: str, company: str, campaign_id: int = None,
+                   email: str = None, title: str = None, linkedin_url: str = None,
+                   research_data: dict = None, apollo_data: dict = None, status: str = "pending"):
     """Create a new prospect."""
     prospect = Prospect(
-        campaign_id=campaign_id,
         name=name,
-        email=email,
         company=company,
+        campaign_id=campaign_id,
+        email=email,
         title=title,
         linkedin_url=linkedin_url,
-        research_data=research_data
+        research_data=research_data,
+        apollo_data=apollo_data,
+        status=status
     )
     db.add(prospect)
 
-    # Update campaign prospect count
-    campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
-    if campaign:
-        campaign.total_prospects += 1
+    # Update campaign prospect count if campaign is specified
+    if campaign_id:
+        campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
+        if campaign:
+            campaign.total_prospects += 1
 
     db.commit()
     db.refresh(prospect)
+    return prospect
+
+def update_prospect_apollo_data(db: Session, prospect_id: int, apollo_data: dict,
+                              status: str = "completed", email: str = None,
+                              title: str = None, linkedin_url: str = None):
+    """Update prospect with Apollo.io data."""
+    prospect = db.query(Prospect).filter(Prospect.id == prospect_id).first()
+    if prospect:
+        prospect.apollo_data = apollo_data
+        prospect.status = status
+        prospect.researched_at = func.now()
+
+        # Update fields from Apollo data if provided
+        if email:
+            prospect.email = email
+        if title:
+            prospect.title = title
+        if linkedin_url:
+            prospect.linkedin_url = linkedin_url
+
+        db.commit()
+        db.refresh(prospect)
     return prospect
 
 def get_campaign_prospects(db: Session, campaign_id: int):
