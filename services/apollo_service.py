@@ -44,15 +44,15 @@ class ApolloService:
             return None
 
     def _search_person_sync(self, name: str, company: str) -> Optional[Dict[str, Any]]:
-        """Synchronous helper method for the API call"""
+        """Synchronous helper method for the API call using contacts/search endpoint"""
 
         # Split name into first and last name
         name_parts = name.strip().split()
         first_name = name_parts[0] if name_parts else ""
         last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else ""
 
-        # Apollo.io People Search API endpoint
-        url = f"{self.base_url}/mixed_people/search"
+        # Use Apollo.io Contacts Search API endpoint (available in your plan)
+        url = f"{self.base_url}/contacts/search"
 
         headers = {
             "Content-Type": "application/json",
@@ -60,22 +60,20 @@ class ApolloService:
             "X-Api-Key": self.api_key
         }
 
-        # Search payload
+        # Search payload for contacts/search
         payload = {
-            "q_person_name": name.strip(),
-            "q_organization_name": company.strip(),
             "page": 1,
             "per_page": 1,  # We only need the first match
-            "person_titles": [],
-            "q_person_locations": [],
-            "contact_email_status": ["verified", "guessed", "unavailable"],
+            "q_keywords": f"{name} {company}",  # General keyword search
         }
 
-        # If we can split first/last name, use more specific search
+        # Add specific filters if we have them
         if first_name:
             payload["first_name"] = first_name
         if last_name:
             payload["last_name"] = last_name
+        if company:
+            payload["organization_names"] = [company]
 
         try:
             logger.info(f"Searching Apollo for: {name} at {company}")
@@ -90,22 +88,22 @@ class ApolloService:
             if response.status_code == 200:
                 data = response.json()
 
-                # Check if we have results
-                people = data.get("people", [])
-                if not people:
+                # Check if we have results - contacts API returns different structure
+                contacts = data.get("contacts", [])
+                if not contacts:
                     logger.info(f"No results found for {name} at {company}")
                     return None
 
-                # Get the first person result
-                person = people[0]
+                # Get the first contact result
+                contact = contacts[0]
 
-                # Extract company information
-                organization = person.get("organization", {}) or {}
+                # Extract company information from contact
+                organization = contact.get("organization", {}) or {}
 
                 result = {
-                    "email": person.get("email"),
-                    "linkedin_url": person.get("linkedin_url"),
-                    "title": person.get("title"),
+                    "email": contact.get("email"),
+                    "linkedin_url": contact.get("linkedin_url"),
+                    "title": contact.get("title"),
                     "company_info": {
                         "name": organization.get("name"),
                         "website": organization.get("website_url"),
@@ -115,11 +113,19 @@ class ApolloService:
                     }
                 }
 
-                logger.info(f"Found person data for {name}: {result.get('email', 'No email')}")
+                logger.info(f"Found contact data for {name}: {result.get('email', 'No email')}")
                 return result
 
             elif response.status_code == 401:
                 logger.error("Apollo API authentication failed - check API key")
+                return None
+
+            elif response.status_code == 403:
+                error_data = response.json() if response.content else {}
+                if "free plan" in error_data.get("error", "").lower():
+                    logger.error("Apollo API requires paid plan for people search")
+                else:
+                    logger.error("Apollo API access forbidden")
                 return None
 
             elif response.status_code == 429:
@@ -181,6 +187,87 @@ class ApolloService:
         }
 
         return enriched_data
+
+    async def search_organization(self, company: str) -> Optional[Dict[str, Any]]:
+        """
+        Search for organization information using Apollo.io organizations/search
+
+        Args:
+            company (str): Company name
+
+        Returns:
+            Dict with organization data or None if not found
+        """
+        if not self.api_key:
+            logger.error("Apollo API key not configured")
+            return None
+
+        try:
+            loop = asyncio.get_event_loop()
+            result = await loop.run_in_executor(None, self._search_organization_sync, company)
+            return result
+
+        except Exception as e:
+            logger.error(f"Error searching organization in Apollo: {e}")
+            return None
+
+    def _search_organization_sync(self, company: str) -> Optional[Dict[str, Any]]:
+        """Search for organization using organizations/search endpoint"""
+
+        url = f"{self.base_url}/organizations/search"
+
+        headers = {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+            "X-Api-Key": self.api_key
+        }
+
+        payload = {
+            "q_organization_name": company.strip(),
+            "page": 1,
+            "per_page": 1
+        }
+
+        try:
+            logger.info(f"Searching Apollo for organization: {company}")
+
+            response = requests.post(
+                url,
+                json=payload,
+                headers=headers,
+                timeout=30
+            )
+
+            if response.status_code == 200:
+                data = response.json()
+                organizations = data.get("organizations", [])
+
+                if not organizations:
+                    logger.info(f"No organization found for {company}")
+                    return None
+
+                org = organizations[0]
+
+                result = {
+                    "name": org.get("name"),
+                    "website": org.get("website_url"),
+                    "industry": org.get("industry"),
+                    "size": org.get("estimated_num_employees"),
+                    "description": org.get("short_description"),
+                    "linkedin_url": org.get("linkedin_url"),
+                    "location": org.get("primary_location", {}).get("city")
+                }
+
+                logger.info(f"Found organization data for {company}")
+                return result
+
+            else:
+                logger.error(f"Apollo organizations API error: {response.status_code}")
+                return None
+
+        except Exception as e:
+            logger.error(f"Error in organization search: {e}")
+            return None
 
 # Create a global instance
 apollo_service = ApolloService()

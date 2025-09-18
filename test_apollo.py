@@ -163,7 +163,8 @@ async def run_api_tests() -> None:
     test_cases = [
         ("John Smith", "Google"),
         ("Sarah Johnson", "Microsoft"),
-        ("Carlos Silva", "Nubank")  # Brazilian company
+        ("Carlos Silva", "Nubank"),  # Brazilian company
+        ("Tim Cook", "Apple")  # High-profile CEO
     ]
 
     results = []
